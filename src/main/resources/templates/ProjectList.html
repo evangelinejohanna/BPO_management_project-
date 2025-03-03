@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register Page</title>
+    <title>Project List</title>
 </head>
 <body>
-    <h1>Register</h1>
-
-    <form th:action="@{/register}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required /> <br /><br />
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required /> <br /><br />
-
-        <input type="submit" value="Register" />
-    </form>
-        <p th:if="${error}" th:text="${error}" style="color:red;"></p>
-    <div>
-        <h3>Already have an account? <a th:href="@{/}">Login</a></h3>
-    </div>
+    <h2>Projects</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Project Name</th>
+            <th>Client</th>
+        </tr>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.id}"></td>
+            <td th:text="${project.projectName}"></td>
+            <td th:text="${project.client}"></td>
+        </tr>
+    </table>
+    <a href="/welcome">Back</a>
 </body>
 </html>

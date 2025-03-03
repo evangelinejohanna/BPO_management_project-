@@ -1,26 +1,17 @@
-package com.batch2.artifact1.service;
+package com.eva.bpo.app.service;
 
+import com.eva.bpo.app.domain.Project;
+import com.eva.bpo.app.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.batch2.artifact1.domain.Login;
-import com.batch2.artifact1.repository.RegRepo;
+import java.util.List;
 
 @Service
-public class RegService {
+public class ProjectService {
     @Autowired
-    private RegRepo rep;
+    private ProjectRepository projectRepository;
 
-    public boolean registerUser(String username, String password) {
-        // Check if username already exists
-        if (rep.findByUsername(username) != null) {
-            return false;
-        }
-
-        // Save new user
-        Login newUser = new Login(username, password);
-        rep.save(newUser);
-        return true;
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
     }
-
 }

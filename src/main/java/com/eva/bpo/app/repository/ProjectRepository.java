@@ -1,11 +1,7 @@
-package com.batch2.artifact1.repository;
+package com.eva.bpo.app.repository;
 
+import com.eva.bpo.app.domain.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import com.batch2.artifact1.domain.Login;
-
-@Repository
-public interface RegRepo extends JpaRepository<Login, String> {
-    Login findByUsername(String username);
+public interface ProjectRepository extends JpaRepository<Project, Long> {
 }

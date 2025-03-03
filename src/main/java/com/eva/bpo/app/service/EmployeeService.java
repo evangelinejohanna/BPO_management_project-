@@ -1,34 +1,17 @@
-package com.batch2.artifact1.service;
+package com.eva.bpo.app.service;
 
-import java.util.List;
-
+import com.eva.bpo.app.domain.Employee;
+import com.eva.bpo.app.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.batch2.artifact1.domain.Student;
-import com.batch2.artifact1.repository.CourseRepo;
+import java.util.List;
 
 @Service
-public class CourseService {
+public class EmployeeService {
     @Autowired
-    private CourseRepo rep;
+    private EmployeeRepository employeeRepository;
 
-    public List<Student> listAll() {
-        return rep.findAll();
-    }
-
-    public void save(Student student) {
-        rep.save(student);
-    }
-
-    public Student get(long id) {
-        return rep.findById(id).orElseThrow(() -> new RuntimeException("Student not found with ID: " + id));
-    }
-
-    public void delete(long id) {
-        if (!rep.existsById(id)) {
-            throw new RuntimeException("Cannot delete, student not found with ID: " + id);
-        }
-        rep.deleteById(id);
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 }
