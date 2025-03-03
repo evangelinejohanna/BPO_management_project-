@@ -1,36 +1,28 @@
-package com.batch2.artifact1.controller;
+package com.eva.bpo.app.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.eva.bpo.app.domain.User;
+import com.eva.bpo.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.batch2.artifact1.domain.Login;
-import com.batch2.artifact1.service.LoginService;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-@Controller
+@RestController
+@RequestMapping("/api")
 public class LoginController {
-
     @Autowired
-    private LoginService service;
+    private UserService userService;
 
-    @GetMapping("/")
-    public String showLoginPage() {
+    @GetMapping("/login")
+    public String loginPage(Model model) {
         return "login";
     }
 
     @PostMapping("/login")
-    public String processLogin(@RequestParam String username, @RequestParam String password, Model model) {
-        Login user = service.log(username, password);
-
-        if (user != null) {
-            return "redirect:/welcome";
-        } else {
-            model.addAttribute("error", "Invalid username or password");
-            return "redirect:/login";
+    public String authenticateUser(@RequestParam String username, @RequestParam String password) {
+        User user = userService.getUserByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return "Login Successful";
         }
+        return "Invalid Credentials";
     }
 }
